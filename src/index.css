@@ -1,0 +1,92 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+    --viggle-bg: #fcfcfc;
+    --viggle-stone: #f3f2ed;
+    --viggle-stone-deep: #ebe9e2;
+    --viggle-ink: #29231e;
+    --viggle-muted: #6b645c;
+    --viggle-green: #00e640;
+    --viggle-green-hover: #00cf39;
+    --viggle-border: rgba(41, 35, 30, 0.08);
+  }
+
+  .dark {
+    --viggle-bg: #0e0d0c;
+    --viggle-stone: #171614;
+    --viggle-stone-deep: #22201d;
+    --viggle-ink: #f5f4f0;
+    --viggle-muted: #a39c93;
+    --viggle-green: #07f34b;
+    --viggle-green-hover: #22ff60;
+    --viggle-border: rgba(245, 244, 240, 0.1);
+  }
+
+  html {
+    font-family: "Satoshi", "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+    scroll-behavior: smooth;
+  }
+
+  code,
+  pre,
+  .font-mono {
+    font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  }
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes viggle-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-viggle-marquee {
+  display: flex;
+  width: max-content;
+  animation: viggle-marquee 26s linear infinite;
+}
+
+.animate-viggle-marquee:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-viggle-marquee {
+    animation: none;
+  }
+}
+
+/* Subtle aurora gradient backdrop matching Viggle's Bottom CTA & API frame */
+.viggle-aurora-bottom {
+  background:
+    radial-gradient(60% 100% at 22% 100%, rgba(16, 185, 129, 0.72) 0%, rgba(16, 185, 129, 0) 68%),
+    radial-gradient(55% 100% at 50% 105%, rgba(0, 230, 64, 0.78) 0%, rgba(0, 230, 64, 0) 65%),
+    radial-gradient(60% 100% at 80% 100%, rgba(56, 189, 248, 0.58) 0%, rgba(56, 189, 248, 0) 68%);
+}
+
+.viggle-api-surface {
+  background:
+    radial-gradient(45% 65% at 15% 95%, rgba(6, 78, 59, 0.92) 0%, rgba(6, 78, 59, 0) 70%),
+    radial-gradient(55% 75% at 62% 88%, rgba(16, 185, 129, 0.8) 0%, rgba(16, 185, 129, 0) 72%),
+    radial-gradient(50% 65% at 92% 95%, rgba(6, 95, 70, 0.9) 0%, rgba(6, 95, 70, 0) 70%),
+    linear-gradient(180deg, #ecebe6 0%, #d8efe3 62%, #0c4a38 100%);
+}
+
+.dark .viggle-api-surface {
+  background:
+    radial-gradient(45% 65% at 15% 95%, rgba(6, 78, 59, 0.95) 0%, rgba(6, 78, 59, 0) 70%),
+    radial-gradient(55% 75% at 62% 88%, rgba(16, 185, 129, 0.55) 0%, rgba(16, 185, 129, 0) 72%),
+    linear-gradient(180deg, #1b1a18 0%, #123127 65%, #07271d 100%);
+}

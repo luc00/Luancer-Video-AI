@@ -1,0 +1,196 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Authenticated creator profile and credit balance scoped privately to the signed-in user.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$",
+          "description": "Firebase Auth UID matching the document ID."
+        },
+        "displayName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120,
+          "description": "Creator display name."
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "minLength": 3,
+          "maxLength": 254,
+          "description": "Creator email address from Google Auth."
+        },
+        "photoUrl": {
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 500,
+          "description": "Optional avatar URL."
+        },
+        "credits": {
+          "type": "integer",
+          "description": "Remaining generation credits."
+        },
+        "planId": {
+          "type": "string",
+          "enum": ["free", "pro", "live", "max"],
+          "maxLength": 20,
+          "description": "Active subscription tier."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server creation timestamp."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server last update timestamp."
+        }
+      },
+      "required": [
+        "uid",
+        "displayName",
+        "email",
+        "credits",
+        "planId",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "StudioCreation": {
+      "title": "StudioCreation",
+      "description": "Persisted metadata and video reference for a user's Studio creation.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$",
+          "description": "Creation document ID."
+        },
+        "userId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$",
+          "description": "Owner Firebase Auth UID."
+        },
+        "mode": {
+          "type": "string",
+          "enum": ["text-to-video", "image-to-video", "mix", "multi-editor", "pinoc", "live"],
+          "maxLength": 32,
+          "description": "Studio creation mode."
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120,
+          "description": "Short label for the creation."
+        },
+        "prompt": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1000,
+          "description": "Prompt or motion instructions."
+        },
+        "model": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "description": "Model identifier used for rendering."
+        },
+        "aspectRatio": {
+          "type": "string",
+          "enum": ["16:9", "9:16"],
+          "maxLength": 10,
+          "description": "Video output aspect ratio."
+        },
+        "status": {
+          "type": "string",
+          "enum": ["queued", "rendering", "completed", "failed"],
+          "maxLength": 20,
+          "description": "Render lifecycle status."
+        },
+        "creditsUsed": {
+          "type": "integer",
+          "description": "Credits consumed by this generation."
+        },
+        "mediaType": {
+          "type": "string",
+          "enum": ["video", "image"],
+          "maxLength": 16,
+          "description": "Output media kind."
+        },
+        "videoId": {
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 128,
+          "description": "Optional server-side rendered video file identifier."
+        },
+        "outputUrl": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500,
+          "description": "Playable relative or storage URL (no raw base64 blobs)."
+        },
+        "interactionId": {
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 200,
+          "description": "Optional Gemini Interactions API interaction ID."
+        },
+        "errorMessage": {
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 400,
+          "description": "Optional error description if generation failed."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server creation timestamp."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server last update timestamp."
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "mode",
+        "title",
+        "prompt",
+        "model",
+        "aspectRatio",
+        "status",
+        "creditsUsed",
+        "mediaType",
+        "outputUrl",
+        "createdAt",
+        "updatedAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": {
+        "$ref": "#/entities/UserProfile"
+      },
+      "description": "Private user account documents containing email, plan tier, and credit balance."
+    },
+    "/users/{userId}/creations/{creationId}": {
+      "schema": {
+        "$ref": "#/entities/StudioCreation"
+      },
+      "description": "User-owned Studio video and motion creation records synced across sessions."
+    }
+  }
+}
