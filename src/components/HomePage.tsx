@@ -1,8 +1,15 @@
 import { useState } from 'react';
 import { ArrowRight, ArrowUpRight, Box, Gamepad2, Play, Sparkles } from 'lucide-react';
-import { ASSETS, BRAND_CASE_STUDIES, MOTION_TEMPLATES, PINOC_WORLDS } from '../data/viggleData';
+import {
+  ASSETS,
+  BRAND_CASE_STUDIES,
+  HOME_FEATURED_TEMPLATES,
+  HOME_TOP_TEMPLATES,
+  MOTION_TEMPLATES,
+} from '../data/viggleData';
 import { Jst2Globe } from './Jst2Globe';
 import { PartnerLogos } from './PartnerLogos';
+import { getTemplate4kVideoUrl } from '../utils/templateMedia';
 import { UI_COPY, type LanguageCode } from '../utils/viggleLogic';
 
 interface HomePageProps {
@@ -12,12 +19,13 @@ interface HomePageProps {
 }
 
 export function HomePage({ onNavigate, theme, lang }: HomePageProps) {
-  const [activeWorldId, setActiveWorldId] = useState(PINOC_WORLDS[0].id);
+  const [activeWorldId, setActiveWorldId] = useState(HOME_TOP_TEMPLATES[0].id);
   const [apiStep, setApiStep] = useState<1 | 2 | 3>(3);
   const [fighterHit, setFighterHit] = useState(false);
 
   const copy = UI_COPY[lang];
-  const activeWorld = PINOC_WORLDS.find((w) => w.id === activeWorldId) ?? PINOC_WORLDS[0];
+  const activeWorld =
+    HOME_TOP_TEMPLATES.find((w) => w.id === activeWorldId) ?? HOME_TOP_TEMPLATES[0];
 
   const triggerHit = () => {
     setFighterHit(true);
@@ -33,11 +41,11 @@ export function HomePage({ onNavigate, theme, lang }: HomePageProps) {
   const handlePinocKeyDown = (e: React.KeyboardEvent, idx: number) => {
     if (e.key === 'ArrowRight') {
       e.preventDefault();
-      setActiveWorldId(PINOC_WORLDS[(idx + 1) % PINOC_WORLDS.length].id);
+      setActiveWorldId(HOME_TOP_TEMPLATES[(idx + 1) % HOME_TOP_TEMPLATES.length].id);
     } else if (e.key === 'ArrowLeft') {
       e.preventDefault();
       setActiveWorldId(
-        PINOC_WORLDS[(idx - 1 + PINOC_WORLDS.length) % PINOC_WORLDS.length].id
+        HOME_TOP_TEMPLATES[(idx - 1 + HOME_TOP_TEMPLATES.length) % HOME_TOP_TEMPLATES.length].id
       );
     }
   };
@@ -159,60 +167,82 @@ export function HomePage({ onNavigate, theme, lang }: HomePageProps) {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            {/* Interactive 5-panel expanding gallery */}
+            {/* Interactive 5-panel expanding top templates showcase */}
             <div className="lg:col-span-8 flex gap-2.5 h-[320px] sm:h-[380px]">
-              {PINOC_WORLDS.map((world, idx) => {
-                const isActive = world.id === activeWorld.id;
+              {HOME_TOP_TEMPLATES.map((tpl, idx) => {
+                const isActive = tpl.id === activeWorld.id;
                 return (
-                  <button
-                    key={world.id}
-                    type="button"
-                    aria-pressed={isActive}
-                    onClick={() => setActiveWorldId(world.id)}
-                    onKeyDown={(e) => handlePinocKeyDown(e, idx)}
-                    className={`relative overflow-hidden rounded-[22px] transition-all duration-500 ease-out text-left cursor-pointer group ${
-                      isActive ? 'flex-[5]' : 'flex-[0.7] hover:flex-[1]'
+                  <div
+                    key={tpl.id}
+                    className={`relative overflow-hidden rounded-[22px] transition-all duration-500 ease-out group bg-black ${
+                      isActive ? 'flex-[5]' : 'flex-[0.75] hover:flex-[1]'
                     }`}
                   >
-                    <img
-                      src={world.image}
-                      alt={world.title}
-                      loading="lazy"
-                      decoding="async"
-                      referrerPolicy="no-referrer"
-                      className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent" />
-                    <div
-                      className={`absolute bottom-4 left-4 right-4 text-white transition-opacity ${
-                        isActive ? 'opacity-100' : 'opacity-0 sm:opacity-85'
-                      }`}
+                    <button
+                      type="button"
+                      aria-pressed={isActive}
+                      aria-label={`Preview ${tpl.name} template`}
+                      onClick={() => setActiveWorldId(tpl.id)}
+                      onKeyDown={(e) => handlePinocKeyDown(e, idx)}
+                      className="w-full h-full block text-left cursor-pointer"
                     >
-                      {isActive ? (
-                        <div className="flex items-end justify-between gap-3">
+                      {isActive && tpl.videoUrl ? (
+                        <video
+                          key={tpl.id}
+                          src={getTemplate4kVideoUrl(tpl.id, tpl.videoUrl)}
+                          poster={tpl.image}
+                          autoPlay
+                          loop
+                          muted
+                          playsInline
+                          preload="metadata"
+                          className={`w-full h-full object-cover transition-transform duration-500 ${
+                            tpl.aspect === '9:16' ? 'object-top' : 'object-center'
+                          }`}
+                        />
+                      ) : (
+                        <img
+                          src={tpl.image}
+                          alt={tpl.name}
+                          loading="lazy"
+                          decoding="async"
+                          className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 ${
+                            tpl.aspect === '9:16' ? 'object-top' : 'object-center'
+                          }`}
+                        />
+                      )}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/15 to-transparent pointer-events-none" />
+                      <div
+                        className={`absolute bottom-4 left-4 right-4 text-white transition-opacity pointer-events-none ${
+                          isActive ? 'opacity-100 pr-36' : 'opacity-0 sm:opacity-90'
+                        }`}
+                      >
+                        {isActive ? (
                           <div>
-                            <div className="text-[16px] font-semibold">{world.title}</div>
+                            <div className="text-[16px] font-semibold truncate">{tpl.name}</div>
                             <div className="text-[12px] text-white/75 tabular-nums">
-                              {world.polygons} · {world.generationTime}
+                              {tpl.category} · {tpl.aspect} · {tpl.duration}
                             </div>
                           </div>
-                          <span
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              onNavigate('/studio/pinoc');
-                            }}
-                            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/20 backdrop-blur-md text-[12px] font-medium hover:bg-white/30"
-                          >
-                            Walk inside <ArrowRight className="w-3 h-3" />
+                        ) : (
+                          <span className="block text-[12px] font-medium truncate">
+                            {tpl.name}
                           </span>
-                        </div>
-                      ) : (
-                        <span className="block text-[12px] font-medium truncate">
-                          {world.title}
-                        </span>
-                      )}
-                    </div>
-                  </button>
+                        )}
+                      </div>
+                    </button>
+
+                    {isActive && (
+                      <button
+                        type="button"
+                        onClick={() => onNavigate(`/studio/mix?template=${tpl.id}`)}
+                        className="absolute bottom-4 right-4 z-10 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/20 hover:bg-[#07f34b] hover:text-[#111310] backdrop-blur-md text-white text-[12px] font-semibold transition-colors cursor-pointer"
+                      >
+                        <span>Use template</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </button>
+                    )}
+                  </div>
                 );
               })}
             </div>
@@ -223,11 +253,11 @@ export function HomePage({ onNavigate, theme, lang }: HomePageProps) {
                 Make 3D worlds, characters and motion from words, a photo or a clip.
               </h3>
               <p className="text-[15px] leading-[1.6] text-[#6b645c] dark:text-[#a39c93] mb-4">
-                PINOC is our 3D creative engine, built on JST-2. Describe a scene or drop in a picture, and walk around the world it makes in a minute or two.
+                PINOC and JST-2 power the most used character swaps, dance trends, and 3D worlds. Pick any featured template to preview motion or remix it in Studio.
               </p>
               <div className="p-3.5 rounded-2xl bg-[#f3f2ed] dark:bg-[#171614] border border-black/5 dark:border-white/10 text-[13px] text-[#6b645c] dark:text-[#a39c93]">
                 <span className="font-semibold text-[#29231e] dark:text-[#f5f4f0]">
-                  Active scene ({activeWorld.title}):
+                  Active template ({activeWorld.name}):
                 </span>{' '}
                 {activeWorld.prompt}
               </div>
@@ -283,56 +313,81 @@ export function HomePage({ onNavigate, theme, lang }: HomePageProps) {
                 {
                   title: 'Mix',
                   subtitle: 'Single-character video swap',
-                  image: ASSETS.memeMix,
-                  path: '/studio/mix',
-                  glow: 'from-violet-400/25 via-transparent to-cyan-400/25',
+                  templateId: 'tpl-kitchen-dance-routine',
+                  fallbackImage: ASSETS.memeMix,
+                  path: '/studio/mix?template=tpl-kitchen-dance-routine',
+                  glow: 'from-violet-400/20 via-transparent to-cyan-400/20',
                 },
                 {
                   title: 'Multi-Editor',
                   subtitle: 'Multi-track scene composition',
-                  image: ASSETS.memeMultiEditor,
-                  path: '/studio/multi-editor',
-                  glow: 'from-sky-400/25 via-transparent to-emerald-400/25',
+                  templateId: 'tpl-rampage-dance',
+                  fallbackImage: ASSETS.memeMultiEditor,
+                  path: '/studio/multi-editor?template=tpl-rampage-dance',
+                  glow: 'from-sky-400/20 via-transparent to-emerald-400/20',
                 },
                 {
                   title: 'Live',
                   subtitle: 'Real-time webcam mocap',
-                  image: ASSETS.memeLive,
-                  path: '/studio/live',
-                  glow: 'from-emerald-400/25 via-transparent to-teal-400/25',
+                  templateId: 'tpl-luancer-live-streamer-1',
+                  fallbackImage: ASSETS.memeLive,
+                  path: '/studio/live?template=tpl-luancer-live-streamer-1',
+                  glow: 'from-emerald-400/20 via-transparent to-teal-400/20',
                 },
-              ].map((card) => (
-                <button
-                  key={card.title}
-                  type="button"
-                  onClick={() => onNavigate(card.path)}
-                  className="group relative rounded-[24px] overflow-hidden aspect-[3/4] text-left cursor-pointer border border-black/8 dark:border-white/10"
-                >
-                  <img
-                    src={card.image}
-                    alt={`${card.title} — ${card.subtitle}`}
-                    loading="lazy"
-                    decoding="async"
-                    referrerPolicy="no-referrer"
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className={`absolute inset-0 bg-gradient-to-br ${card.glow} pointer-events-none`} />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-black/15" />
+              ].map((card) => {
+                const tpl = MOTION_TEMPLATES.find((t) => t.id === card.templateId);
+                return (
+                  <button
+                    key={card.title}
+                    type="button"
+                    onClick={() => onNavigate(card.path)}
+                    className="group relative rounded-[24px] overflow-hidden aspect-[3/4] text-left cursor-pointer border border-black/8 dark:border-white/10 bg-black"
+                  >
+                    {tpl?.videoUrl ? (
+                      <video
+                        src={getTemplate4kVideoUrl(tpl.id, tpl.videoUrl)}
+                        poster={tpl.image}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        preload="metadata"
+                        className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                      />
+                    ) : (
+                      <img
+                        src={tpl?.image ?? card.fallbackImage}
+                        alt={`${card.title} — ${card.subtitle}`}
+                        loading="lazy"
+                        decoding="async"
+                        className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                      />
+                    )}
+                    <div className={`absolute inset-0 bg-gradient-to-br ${card.glow} pointer-events-none`} />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/20 pointer-events-none" />
 
-                  <div className="absolute top-4 left-4">
-                    <span className="inline-block px-4 py-1.5 rounded-full bg-white text-[#111310] text-[15px] font-semibold shadow-sm">
-                      {card.title}
-                    </span>
-                  </div>
+                    <div className="absolute top-4 left-4">
+                      <span className="inline-block px-4 py-1.5 rounded-full bg-white text-[#111310] text-[15px] font-semibold shadow-sm">
+                        {card.title}
+                      </span>
+                    </div>
 
-                  <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-white opacity-90 group-hover:opacity-100">
-                    <span className="text-[13px] font-medium">{card.subtitle}</span>
-                    <span className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center">
-                      <ArrowRight className="w-4 h-4" />
-                    </span>
-                  </div>
-                </button>
-              ))}
+                    <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-white opacity-95 group-hover:opacity-100">
+                      <div className="min-w-0 pr-2">
+                        <div className="text-[13px] font-medium truncate">{card.subtitle}</div>
+                        {tpl && (
+                          <div className="text-[11px] text-white/75 truncate">
+                            {tpl.name}
+                          </div>
+                        )}
+                      </div>
+                      <span className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center shrink-0">
+                        <ArrowRight className="w-4 h-4" />
+                      </span>
+                    </div>
+                  </button>
+                );
+              })}
             </div>
 
             {/* Popular Luancer Motion Templates Quick Launch */}
@@ -367,9 +422,7 @@ export function HomePage({ onNavigate, theme, lang }: HomePageProps) {
               </div>
 
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-                {MOTION_TEMPLATES.filter((t) => t.popular)
-                  .slice(0, 6)
-                  .map((tpl) => (
+                {HOME_FEATURED_TEMPLATES.map((tpl) => (
                     <button
                       key={tpl.id}
                       type="button"
@@ -379,14 +432,14 @@ export function HomePage({ onNavigate, theme, lang }: HomePageProps) {
                       <div className="relative aspect-[3/4] overflow-hidden bg-black">
                         {tpl.videoUrl ? (
                           <video
-                            src={tpl.videoUrl}
+                            src={getTemplate4kVideoUrl(tpl.id, tpl.videoUrl)}
                             poster={tpl.image}
                             autoPlay
                             loop
                             muted
                             playsInline
                             preload="metadata"
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
                           />
                         ) : (
                           <img
@@ -394,7 +447,7 @@ export function HomePage({ onNavigate, theme, lang }: HomePageProps) {
                             alt={tpl.name}
                             loading="lazy"
                             decoding="async"
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
                           />
                         )}
                         <span className="absolute top-1.5 right-1.5 px-1.5 py-0.5 rounded bg-black/75 text-white text-[10px] font-medium tabular-nums">

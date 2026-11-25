@@ -256,6 +256,50 @@ export function advanceStudioJob(job: StudioJob, stepDelta = 30): StudioJob {
   };
 }
 
+export type MixBackgroundMode = 'template' | 'green' | 'white' | 'custom';
+export type StudioResolutionTier = '4k' | '1080p' | '720p';
+
+export function buildMixGenerationPrompt(params: {
+  basePrompt: string;
+  templateName: string;
+  templateCategory: string;
+  bgMode: MixBackgroundMode;
+  characterRefine: boolean;
+  lipSync: boolean;
+  footLock: boolean;
+  isTextOnly: boolean;
+  secondCharacterName?: string;
+}): string {
+  const trimmed = params.basePrompt.trim();
+  if (params.isTextOnly) {
+    return trimmed;
+  }
+
+  const core =
+    trimmed ||
+    `Animate this character performing ${params.templateName} (${params.templateCategory}) with smooth natural lighting`;
+
+  const modifiers: string[] = [];
+  if (params.bgMode === 'green') {
+    modifiers.push('isolated cleanly against a solid #00FF00 green screen chroma key background');
+  } else if (params.bgMode === 'white') {
+    modifiers.push('isolated cleanly against a seamless white studio cyclorama background');
+  } else if (params.bgMode === 'custom') {
+    modifiers.push('composited cleanly into custom scene background');
+  }
+
+  if (params.characterRefine) modifiers.push('multi-angle character identity refine');
+  if (params.lipSync) modifiers.push('facial expression and lip sync preservation');
+  if (params.footLock) modifiers.push('physics-grounded foot-lock contact');
+  if (params.secondCharacterName) {
+    modifiers.push(`dual-character multi-track choreography alongside ${params.secondCharacterName}`);
+  }
+
+  if (modifiers.length === 0) return core;
+  const combined = `${core}. Features: ${modifiers.join(', ')}.`;
+  return combined.slice(0, 1000);
+}
+
 export const TEMPLATE_CATEGORIES = [
   'All',
   'Memes',
@@ -264,6 +308,7 @@ export const TEMPLATE_CATEGORIES = [
   'Sports',
   'Rap / Music',
   '3D Worlds',
+  'VFX & Swap',
   'Classic Memes',
 ] as const;
 

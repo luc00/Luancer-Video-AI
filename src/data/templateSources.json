@@ -1,0 +1,858 @@
+{
+  "tpl-yachty-walk": {
+    "videoUrl": "/assets/viggle-templates/clip-lil-yachty-stage-entrance-5cedb4aa.mp4",
+    "priority": true
+  },
+  "tpl-hitting-that-move": {
+    "videoUrl": "/assets/viggle-templates/clip-hitting-that-move-7c2d9f85.mp4",
+    "priority": true
+  },
+  "tpl-rampage-dance": {
+    "videoUrl": "/assets/viggle-templates/clip-rampage-dance-3f76efab.mp4",
+    "priority": true
+  },
+  "tpl-hugo-dance": {
+    "videoUrl": "/assets/viggle-templates/clip-hugo-dance-a9d4086a.mp4",
+    "priority": false
+  },
+  "tpl-dance-if-you-trend": {
+    "videoUrl": "/assets/viggle-templates/clip-dance-if-you-trend-9308e5ee.mp4",
+    "priority": false
+  },
+  "tpl-king-nasir-real-dance": {
+    "videoUrl": "/assets/viggle-templates/clip-king-nasir-real-dance-7f3451ff.mp4",
+    "priority": false
+  },
+  "tpl-party-entrance-swap": {
+    "videoUrl": "/assets/viggle-templates/clip-party-entrance-swap-7bd5dfbe.mp4",
+    "priority": true
+  },
+  "tpl-brazil-passinho": {
+    "videoUrl": "/assets/viggle-templates/clip-brazil-dance-trend-passinho-80ad849f.mp4",
+    "priority": true
+  },
+  "tpl-fire-strong-hits": {
+    "videoUrl": "/assets/viggle-templates/clip-fire-when-the-strong-hits-b41871e5.mp4",
+    "priority": false
+  },
+  "tpl-bendy-dance-class": {
+    "videoUrl": "/assets/viggle-templates/clip-bendy-dance-in-class-70a628fb.mp4",
+    "priority": false
+  },
+  "tpl-is-me-is-verity": {
+    "videoUrl": "/assets/viggle-templates/clip-is-me-is-verity-cb8f03bd.mp4",
+    "priority": false
+  },
+  "tpl-taco-bell-lettuce": {
+    "videoUrl": "/assets/viggle-templates/clip-i-ate-the-lettuce-at-3c9016a0.mp4",
+    "priority": false
+  },
+  "tpl-twistin-on-beattt": {
+    "videoUrl": "/assets/viggle-templates/clip-twistin-on-beattt-f0077b5f.mp4",
+    "priority": false
+  },
+  "tpl-hoshira-shuffle": {
+    "videoUrl": "/assets/viggle-templates/clip-hoshira-shuffle-dance-68537175.mp4",
+    "priority": false
+  },
+  "tpl-zynpickle": {
+    "videoUrl": "/assets/viggle-templates/clip-hard-to-breath-with-zynpickle-82e44b11.mp4",
+    "priority": false
+  },
+  "tpl-catch-sticks": {
+    "videoUrl": "/assets/viggle-templates/clip-kid-trying-to-catch-sticks-97d60f0d.mp4",
+    "priority": false
+  },
+  "tpl-kitchen-dance-routine": {
+    "videoUrl": "/assets/viggle-templates/clip-kitchen-dance-routine-ba0eb0e8.mp4",
+    "priority": true
+  },
+  "tpl-jubilee-dance": {
+    "videoUrl": "/assets/viggle-templates/clip-jubilee-dance-14ddbbcc.mp4",
+    "priority": false
+  },
+  "tpl-get-sturdyy": {
+    "videoUrl": "/assets/viggle-templates/clip-get-sturdyy-f8120d71.mp4",
+    "priority": false
+  },
+  "tpl-fortnite-token": {
+    "videoUrl": "/assets/viggle-templates/clip-ahh-almost-almost-fortnite-token-f4ed0b5f.mp4",
+    "priority": false
+  },
+  "tpl-hes-huluhooping": {
+    "videoUrl": "/assets/viggle-templates/clip-he-s-huluhooping-bb87f80c.mp4",
+    "priority": false
+  },
+  "tpl-pardon-dance": {
+    "videoUrl": "/assets/viggle-templates/clip-pardon-dance-89758a07.mp4",
+    "priority": false
+  },
+  "tpl-toc-toc-french": {
+    "videoUrl": "/assets/viggle-templates/clip-toc-toc-french-dance-de1e10d9.mp4",
+    "priority": false
+  },
+  "tpl-bro-uninvented-wheel": {
+    "videoUrl": "/assets/viggle-templates/clip-bro-uninvented-the-wheel-26ae7177.mp4",
+    "priority": false
+  },
+  "tpl-mellow-rampage": {
+    "videoUrl": "/assets/viggle-templates/clip-mellow-rampage-f2f68fc4.mp4",
+    "priority": false
+  },
+  "tpl-careful-bro": {
+    "videoUrl": "/assets/viggle-templates/clip-careful-bro-8a853d5c.mp4",
+    "priority": false
+  },
+  "tpl-i-farted-again": {
+    "videoUrl": "/assets/viggle-templates/clip-i-farted-again-636c6366.mp4",
+    "priority": false
+  },
+  "tpl-black-flash-edit": {
+    "videoUrl": "/assets/viggle-templates/clip-black-flash-ahh-edit-79005ca8.mp4",
+    "priority": true
+  },
+  "tpl-get-out-store": {
+    "videoUrl": "/assets/viggle-templates/clip-get-out-them-ppl-store-06cd893f.mp4",
+    "priority": false
+  },
+  "tpl-whole-life-changed": {
+    "videoUrl": "/assets/viggle-templates/clip-my-whole-life-has-changed-f7eaeab9.mp4",
+    "priority": false
+  },
+  "tpl-mission-failed": {
+    "videoUrl": "/assets/viggle-templates/clip-mission-failed-successfully-d4922497.mp4",
+    "priority": false
+  },
+  "tpl-simone-biles-floor": {
+    "videoUrl": "/assets/viggle-templates/clip-simone-biles-floor-routine-72944f19.mp4",
+    "priority": false
+  },
+  "tpl-miles-morales-train": {
+    "videoUrl": "/assets/viggle-templates/clip-miles-morales-dancing-on-train-cdb74363.mp4",
+    "priority": false
+  },
+  "tpl-ai-dance-gallery-1": {
+    "videoUrl": "/assets/viggle-templates/ai-dance--gallery-1-105afea9.mp4",
+    "priority": true
+  },
+  "tpl-ai-dance-gallery-2": {
+    "videoUrl": "/assets/viggle-templates/ai-dance--gallery-2-2a78f7f2.mp4",
+    "priority": false
+  },
+  "tpl-ai-dance-gallery-3": {
+    "videoUrl": "/assets/viggle-templates/ai-dance--gallery-3-3949a854.mp4",
+    "priority": false
+  },
+  "tpl-ai-dance-gallery-4": {
+    "videoUrl": "/assets/viggle-templates/ai-dance--gallery-4-258d5904.mp4",
+    "priority": false
+  },
+  "tpl-ai-dance-gallery-5": {
+    "videoUrl": "/assets/viggle-templates/ai-dance--gallery-5-79d0310a.mp4",
+    "priority": false
+  },
+  "tpl-ai-dance-gallery-6": {
+    "videoUrl": "/assets/viggle-templates/ai-dance--gallery-6-3e5e144e.mp4",
+    "priority": false
+  },
+  "tpl-ai-dance-gallery-7": {
+    "videoUrl": "/assets/viggle-templates/ai-dance--gallery-7-c637c0ff.mp4",
+    "priority": false
+  },
+  "tpl-anime-dance-ai-generator-gallery-1": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/anime-dance-ai-generator/gallery-1-974ece4f.mp4",
+    "priority": false
+  },
+  "tpl-anime-dance-ai-generator-gallery-2": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/anime-dance-ai-generator/gallery-2-00a42a1c.mp4",
+    "priority": false
+  },
+  "tpl-anime-dance-ai-generator-gallery-3": {
+    "videoUrl": "/assets/viggle-templates/anime-dance-ai-generator--gallery-3-fff210b5.mp4",
+    "priority": true
+  },
+  "tpl-anime-dance-ai-generator-gallery-4": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/anime-dance-ai-generator/gallery-4-4c4140e4.mp4",
+    "priority": false
+  },
+  "tpl-anime-dance-ai-generator-gallery-5": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/anime-dance-ai-generator/gallery-5-8d96833d.mp4",
+    "priority": false
+  },
+  "tpl-anime-dance-ai-generator-gallery-6": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/anime-dance-ai-generator/gallery-6-afefbfed.mp4",
+    "priority": false
+  },
+  "tpl-character-dance-generator-gallery-1": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/character-dance-generator/gallery-1-41f261c1.mp4",
+    "priority": false
+  },
+  "tpl-character-dance-generator-gallery-2": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/character-dance-generator/gallery-2-d329a8ed.mp4",
+    "priority": false
+  },
+  "tpl-character-dance-generator-gallery-3": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/character-dance-generator/gallery-3-48e9a418.mp4",
+    "priority": false
+  },
+  "tpl-character-dance-generator-gallery-4": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/character-dance-generator/gallery-4-4d1f0dba.mp4",
+    "priority": false
+  },
+  "tpl-character-dance-generator-gallery-5": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/character-dance-generator/gallery-5-a3ec05cb.mp4",
+    "priority": false
+  },
+  "tpl-character-dance-generator-gallery-6": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/character-dance-generator/gallery-6-82234c18.mp4",
+    "priority": false
+  },
+  "tpl-brainrot-video-generator-gallery-1": {
+    "videoUrl": "/assets/viggle-templates/brainrot-video-generator--gallery-1-30dd61a0.mp4",
+    "priority": true
+  },
+  "tpl-brainrot-video-generator-gallery-2": {
+    "videoUrl": "/assets/viggle-templates/brainrot-video-generator--gallery-2-e1507989.mp4",
+    "priority": false
+  },
+  "tpl-brainrot-video-generator-gallery-3": {
+    "videoUrl": "/assets/viggle-templates/brainrot-video-generator--gallery-3-7c696f02.mp4",
+    "priority": false
+  },
+  "tpl-brainrot-video-generator-gallery-4": {
+    "videoUrl": "/assets/viggle-templates/brainrot-video-generator--gallery-4-46f76da2.mp4",
+    "priority": false
+  },
+  "tpl-brainrot-video-generator-gallery-5": {
+    "videoUrl": "/assets/viggle-templates/brainrot-video-generator--gallery-5-24cc525d.mp4",
+    "priority": false
+  },
+  "tpl-brainrot-video-generator-gallery-6": {
+    "videoUrl": "/assets/viggle-templates/brainrot-video-generator--gallery-6-34484e00.mp4",
+    "priority": false
+  },
+  "tpl-brainrot-video-generator-gallery-7": {
+    "videoUrl": "/assets/viggle-templates/brainrot-video-generator--gallery-7-c948aa3e.mp4",
+    "priority": false
+  },
+  "tpl-brainrot-video-generator-gallery-8": {
+    "videoUrl": "/assets/viggle-templates/brainrot-video-generator--gallery-8-5c6b1362.mp4",
+    "priority": false
+  },
+  "tpl-ai-animation-generator-gallery-1": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/ai-animation-generator/gallery-1-4e9b7748.mp4",
+    "priority": false
+  },
+  "tpl-ai-animation-generator-gallery-2": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/ai-animation-generator/gallery-2-8b69ef0e.mp4",
+    "priority": false
+  },
+  "tpl-ai-animation-generator-gallery-3": {
+    "videoUrl": "/assets/viggle-templates/ai-animation-generator--gallery-3-b17cac49.mp4",
+    "priority": false
+  },
+  "tpl-ai-animation-generator-gallery-4": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/ai-animation-generator/gallery-4-350f8d10.mp4",
+    "priority": false
+  },
+  "tpl-ai-animation-generator-gallery-5": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/ai-animation-generator/gallery-5-717ec25e.mp4",
+    "priority": false
+  },
+  "tpl-ai-animation-generator-gallery-6": {
+    "videoUrl": "/assets/viggle-templates/ai-animation-generator--gallery-6-7add48ec.mp4",
+    "priority": false
+  },
+  "tpl-ai-avatar-generator-gallery-2": {
+    "videoUrl": "/assets/viggle-templates/ai-avatar-generator--gallery-2-b3852efb.mp4",
+    "priority": true
+  },
+  "tpl-ai-avatar-generator-gallery-4": {
+    "videoUrl": "/assets/viggle-templates/ai-avatar-generator--gallery-4-4d35b8d9.mp4",
+    "priority": false
+  },
+  "tpl-ai-avatar-generator-gallery-6": {
+    "videoUrl": "/assets/viggle-templates/ai-avatar-generator--gallery-6-9263ebea.mp4",
+    "priority": false
+  },
+  "tpl-luancer-remake-ag2-w0": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/viggle-remake/ag2-w0-1451814e.mp4",
+    "priority": false
+  },
+  "tpl-luancer-remake-ag2-w1": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/viggle-remake/ag2-w1-d36c5faa.mp4",
+    "priority": false
+  },
+  "tpl-luancer-remake-ag2-w2": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/viggle-remake/ag2-w2-01834edd.mp4",
+    "priority": false
+  },
+  "tpl-luancer-remake-bgh4-e": {
+    "videoUrl": "/assets/viggle-templates/viggle-remake--bgh4-e-a588dfcb.mp4",
+    "priority": false
+  },
+  "tpl-luancer-remake-bgh6-e": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/viggle-remake/bgh6-e-915defcf.mp4",
+    "priority": false
+  },
+  "tpl-luancer-remake-bgh8-e": {
+    "videoUrl": "/assets/viggle-templates/viggle-remake--bgh8-e-e7aa7cd4.mp4",
+    "priority": false
+  },
+  "tpl-luancer-remake-gp7-e": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/viggle-remake/gp7-e-f7e56e74.mp4",
+    "priority": false
+  },
+  "tpl-luancer-remake-gp9-e": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/viggle-remake/gp9-e-9d0922bd.mp4",
+    "priority": false
+  },
+  "tpl-luancer-remake-hq15-e": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/viggle-remake/hq15-e-21b8139c.mp4",
+    "priority": false
+  },
+  "tpl-luancer-remake-hq22-e": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/viggle-remake/hq22-e-5256b76e.mp4",
+    "priority": false
+  },
+  "tpl-luancer-remake-hq26-e": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/viggle-remake/hq26-e-225594f4.mp4",
+    "priority": false
+  },
+  "tpl-luancer-remake-ixh5-e": {
+    "videoUrl": "/assets/viggle-templates/viggle-remake--ixh5-e-a8bb0ca2.mp4",
+    "priority": false
+  },
+  "tpl-luancer-remake-ln13-e": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/viggle-remake/ln13-e-6b457193.mp4",
+    "priority": false
+  },
+  "tpl-luancer-remake-mxh7-e": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/viggle-remake/mxh7-e-1281cec1.mp4",
+    "priority": false
+  },
+  "tpl-luancer-remake-oxh1-e": {
+    "videoUrl": "/assets/viggle-templates/viggle-remake--oxh1-e-9f54fc40.mp4",
+    "priority": false
+  },
+  "tpl-luancer-remake-oxh5-e": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/viggle-remake/oxh5-e-9568c775.mp4",
+    "priority": false
+  },
+  "tpl-luancer-remake-rm4wires-e": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/viggle-remake/rm4wires-e-b827bea7.mp4",
+    "priority": false
+  },
+  "tpl-luancer-remake-rmh6-e": {
+    "videoUrl": "/assets/viggle-templates/viggle-remake--rmh6-e-a50e3e4f.mp4",
+    "priority": false
+  },
+  "tpl-luancer-remake-vxc03-e": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/viggle-remake/vxc03-e-65aa4c7a.mp4",
+    "priority": false
+  },
+  "tpl-luancer-remake-vxc05-e": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/viggle-remake/vxc05-e-cbabeea0.mp4",
+    "priority": false
+  },
+  "tpl-luancer-remake-vxc07-e": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/viggle-remake/vxc07-e-3a8b36ad.mp4",
+    "priority": false
+  },
+  "tpl-luancer-remake-vxc10-e": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/viggle-remake/vxc10-e-53b85b4d.mp4",
+    "priority": false
+  },
+  "tpl-luancer-remake-wxh10-e": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/viggle-remake/wxh10-e-ccf6a8bc.mp4",
+    "priority": false
+  },
+  "tpl-luancer-remake-wxh12-e": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/viggle-remake/wxh12-e-b47ab03d.mp4",
+    "priority": false
+  },
+  "tpl-ai-body-swap-gallery-4": {
+    "videoUrl": "/assets/viggle-templates/ai-body-swap--gallery-4-2eee1801.mp4",
+    "priority": false
+  },
+  "tpl-ai-body-swap-gallery-5": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/ai-body-swap/gallery-5-6ad33786.mp4",
+    "priority": false
+  },
+  "tpl-ai-body-swap-gallery-6": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/ai-body-swap/gallery-6-36c17e54.mp4",
+    "priority": false
+  },
+  "tpl-ai-cartoon-generator-gallery-1": {
+    "videoUrl": "/assets/viggle-templates/ai-cartoon-generator--gallery-1-8f3a7941.mp4",
+    "priority": false
+  },
+  "tpl-ai-cartoon-generator-gallery-2": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/ai-cartoon-generator/gallery-2-b91e519a.mp4",
+    "priority": false
+  },
+  "tpl-ai-cartoon-generator-gallery-3": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/ai-cartoon-generator/gallery-3-afc9f2ba.mp4",
+    "priority": false
+  },
+  "tpl-ai-green-screen-gallery-1": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/ai-green-screen/gallery-1-4da3e6ac.mp4",
+    "priority": false
+  },
+  "tpl-ai-green-screen-gallery-2": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/ai-green-screen/gallery-2-86941f15.mp4",
+    "priority": false
+  },
+  "tpl-ai-green-screen-gallery-4": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/ai-green-screen/gallery-4-e0b2e7f6.mp4",
+    "priority": false
+  },
+  "tpl-ai-green-screen-gallery-5": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/ai-green-screen/gallery-5-2236e5f4.mp4",
+    "priority": false
+  },
+  "tpl-ai-green-screen-gallery-6": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/ai-green-screen/gallery-6-18d3b78d.mp4",
+    "priority": false
+  },
+  "tpl-ai-image-animator-gallery-1": {
+    "videoUrl": "/assets/viggle-templates/ai-image-animator--gallery-1-33bff766.mp4",
+    "priority": false
+  },
+  "tpl-ai-image-animator-gallery-2": {
+    "videoUrl": "/assets/viggle-templates/ai-image-animator--gallery-2-efc9bcec.mp4",
+    "priority": false
+  },
+  "tpl-ai-image-animator-gallery-3": {
+    "videoUrl": "/assets/viggle-templates/ai-image-animator--gallery-3-6db3094d.mp4",
+    "priority": false
+  },
+  "tpl-ai-image-animator-gallery-4": {
+    "videoUrl": "/assets/viggle-templates/ai-image-animator--gallery-4-03163c5f.mp4",
+    "priority": false
+  },
+  "tpl-ai-image-animator-gallery-5": {
+    "videoUrl": "/assets/viggle-templates/ai-image-animator--gallery-5-699c7504.mp4",
+    "priority": false
+  },
+  "tpl-ai-image-animator-gallery-6": {
+    "videoUrl": "/assets/viggle-templates/ai-image-animator--gallery-6-b5a30260.mp4",
+    "priority": false
+  },
+  "tpl-face-swap-gallery-1": {
+    "videoUrl": "/assets/viggle-templates/face-swap--gallery-1-913535ff.mp4",
+    "priority": false
+  },
+  "tpl-face-swap-gallery-2": {
+    "videoUrl": "/assets/viggle-templates/face-swap--gallery-2-9f1aaeaa.mp4",
+    "priority": false
+  },
+  "tpl-face-swap-gallery-3": {
+    "videoUrl": "/assets/viggle-templates/face-swap--gallery-3-bd3a9dca.mp4",
+    "priority": false
+  },
+  "tpl-face-swap-gallery-4": {
+    "videoUrl": "/assets/viggle-templates/face-swap--gallery-4-95f7e9e0.mp4",
+    "priority": false
+  },
+  "tpl-face-swap-gallery-5": {
+    "videoUrl": "/assets/viggle-templates/face-swap--gallery-5-f5eb6f5d.mp4",
+    "priority": false
+  },
+  "tpl-face-swap-gallery-6": {
+    "videoUrl": "/assets/viggle-templates/face-swap--gallery-6-52a65625.mp4",
+    "priority": false
+  },
+  "tpl-celebrity-face-swap-video-gallery-1": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/celebrity-face-swap-video/gallery-1-6f344834.mp4",
+    "priority": false
+  },
+  "tpl-celebrity-face-swap-video-gallery-6": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/celebrity-face-swap-video/gallery-6-da5d7b31.mp4",
+    "priority": false
+  },
+  "tpl-image-to-video-ai-gallery-1": {
+    "videoUrl": "/assets/viggle-templates/image-to-video-ai--gallery-1-4ad77e61.mp4",
+    "priority": false
+  },
+  "tpl-image-to-video-ai-gallery-2": {
+    "videoUrl": "/assets/viggle-templates/image-to-video-ai--gallery-2-77a54822.mp4",
+    "priority": false
+  },
+  "tpl-image-to-video-ai-gallery-3": {
+    "videoUrl": "/assets/viggle-templates/image-to-video-ai--gallery-3-906c079d.mp4",
+    "priority": false
+  },
+  "tpl-image-to-video-ai-gallery-4": {
+    "videoUrl": "/assets/viggle-templates/image-to-video-ai--gallery-4-c6d60194.mp4",
+    "priority": false
+  },
+  "tpl-image-to-video-ai-gallery-5": {
+    "videoUrl": "/assets/viggle-templates/image-to-video-ai--gallery-5-a0c757af.mp4",
+    "priority": false
+  },
+  "tpl-image-to-video-ai-gallery-7": {
+    "videoUrl": "/assets/viggle-templates/image-to-video-ai--gallery-7-0be15442.mp4",
+    "priority": false
+  },
+  "tpl-character-swap-flash-astronauts-result": {
+    "videoUrl": "/assets/viggle-templates/character-swap--flash-astronauts-result-ec4b8999.mp4",
+    "priority": false
+  },
+  "tpl-character-swap-flash-two-dancers-result": {
+    "videoUrl": "/assets/viggle-templates/character-swap--flash-two-dancers-result-1ba32bf4.mp4",
+    "priority": true
+  },
+  "tpl-character-swap-recast-two-dancers-result": {
+    "videoUrl": "/assets/viggle-templates/character-swap--recast-two-dancers-result-0f6ad465.mp4",
+    "priority": false
+  },
+  "tpl-character-swap-remake-knight-result": {
+    "videoUrl": "/assets/viggle-templates/character-swap--remake-knight-result-68be0219.mp4",
+    "priority": true
+  },
+  "tpl-character-swap-remake-red-panda-result": {
+    "videoUrl": "/assets/viggle-templates/character-swap--remake-red-panda-result-e8d721b3.mp4",
+    "priority": true
+  },
+  "tpl-gamer-solutions-clip-articulated-mannequin": {
+    "videoUrl": "/assets/viggle-templates/gamer-solutions--clip-articulated-mannequin-5b0fc337.mp4",
+    "priority": false
+  },
+  "tpl-gamer-solutions-clip-dancing-girl": {
+    "videoUrl": "/assets/viggle-templates/gamer-solutions--clip-dancing-girl-0e5530f8.mp4",
+    "priority": false
+  },
+  "tpl-gamer-solutions-clip-ginger-boy": {
+    "videoUrl": "/assets/viggle-templates/gamer-solutions--clip-ginger-boy-d2227616.mp4",
+    "priority": false
+  },
+  "tpl-gamer-solutions-clip-graffiti-girl": {
+    "videoUrl": "/assets/viggle-templates/gamer-solutions--clip-graffiti-girl-8a44c813.mp4",
+    "priority": true
+  },
+  "tpl-gamer-solutions-clip-red-haired-girl": {
+    "videoUrl": "/assets/viggle-templates/gamer-solutions--clip-red-haired-girl-637f77b7.mp4",
+    "priority": false
+  },
+  "tpl-gamer-solutions-fight-anyone": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/gamer-solutions/fight-anyone-8170c617.mp4",
+    "priority": false
+  },
+  "tpl-gamer-solutions-luancer-survivor": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/gamer-solutions/viggle-survivor-29e96ddc.mp4",
+    "priority": false
+  },
+  "tpl-jst2-assets-arena-card-track": {
+    "videoUrl": "/assets/viggle-templates/jst2-assets--arena-card-track-032da61a.mp4",
+    "priority": false
+  },
+  "tpl-jst2-assets-attic-cabin-card-track": {
+    "videoUrl": "/assets/viggle-templates/jst2-assets--attic-cabin-card-track-66274661.mp4",
+    "priority": false
+  },
+  "tpl-jst2-assets-green-room-card-track": {
+    "videoUrl": "/assets/viggle-templates/jst2-assets--green-room-card-track-66029ce9.mp4",
+    "priority": false
+  },
+  "tpl-jst2-assets-hobbit-card-track": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/jst2-assets/hobbit-card-track-f497edf9.mp4",
+    "priority": false
+  },
+  "tpl-jst2-assets-hogwarts-card-track": {
+    "videoUrl": "/assets/viggle-templates/jst2-assets--hogwarts-card-track-4597c04e.mp4",
+    "priority": false
+  },
+  "tpl-jst2-gallery-lake-card": {
+    "videoUrl": "/assets/viggle-templates/jst2-gallery--lake-card-cf40a3fc.mp4",
+    "priority": false
+  },
+  "tpl-jst2-gallery-med-bay-card": {
+    "videoUrl": "/assets/viggle-templates/jst2-gallery--med-bay-card-82d5fbf3.mp4",
+    "priority": false
+  },
+  "tpl-jst2-assets-mediterranean-minimalist-card-track": {
+    "videoUrl": "/assets/viggle-templates/jst2-assets--mediterranean-minimalist-card-track-db123e70.mp4",
+    "priority": false
+  },
+  "tpl-jst2-assets-med-street-card-track": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/jst2-assets/med-street-card-track-4e62ff10.mp4",
+    "priority": false
+  },
+  "tpl-jst2-assets-silent-village-card-track": {
+    "videoUrl": "/assets/viggle-templates/jst2-assets--silent-village-card-track-e0eb95bf.mp4",
+    "priority": false
+  },
+  "tpl-jst2-assets-white-house-card-track": {
+    "videoUrl": "/assets/viggle-templates/jst2-assets--white-house-card-track-f7f98c40.mp4",
+    "priority": false
+  },
+  "tpl-jst2-assets-windmill-field-card-track": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/jst2-assets/windmill-field-card-track-c38ff059.mp4",
+    "priority": false
+  },
+  "tpl-pinoc-creator-seedance-chase": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/pinoc/creator-seedance-chase-bd7a034f.mp4",
+    "priority": false
+  },
+  "tpl-pinoc-creator-survivor": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/pinoc/creator-survivor-a3700acf.mp4",
+    "priority": false
+  },
+  "tpl-pinoc-gallery-complex-1": {
+    "videoUrl": "/assets/viggle-templates/pinoc--gallery-complex-1-2931eb4e.mp4",
+    "priority": false
+  },
+  "tpl-pinoc-gallery-complex-2": {
+    "videoUrl": "/assets/viggle-templates/pinoc--gallery-complex-2-899c21c3.mp4",
+    "priority": false
+  },
+  "tpl-pinoc-gallery-complex-3": {
+    "videoUrl": "/assets/viggle-templates/pinoc--gallery-complex-3-2d5b1f02.mp4",
+    "priority": false
+  },
+  "tpl-pinoc-gallery-everyday-1": {
+    "videoUrl": "/assets/viggle-templates/pinoc--gallery-everyday-1-79db7251.mp4",
+    "priority": false
+  },
+  "tpl-pinoc-gallery-fingers-1": {
+    "videoUrl": "/assets/viggle-templates/pinoc--gallery-fingers-1-a7a961c4.mp4",
+    "priority": false
+  },
+  "tpl-pinoc-gallery-fingers-2": {
+    "videoUrl": "/assets/viggle-templates/pinoc--gallery-fingers-2-58820788.mp4",
+    "priority": false
+  },
+  "tpl-pinoc-gallery-highspeed-1": {
+    "videoUrl": "/assets/viggle-templates/pinoc--gallery-highspeed-1-198baa3f.mp4",
+    "priority": false
+  },
+  "tpl-pinoc-gallery-highspeed-2": {
+    "videoUrl": "/assets/viggle-templates/pinoc--gallery-highspeed-2-ad94c698.mp4",
+    "priority": false
+  },
+  "tpl-pinoc-text-to-motion-prompt-air-guitar": {
+    "videoUrl": "/assets/viggle-templates/pinoc-text-to-motion--prompt-air-guitar-a8764a66.mp4",
+    "priority": false
+  },
+  "tpl-pinoc-text-to-motion-prompt-dribble": {
+    "videoUrl": "/assets/viggle-templates/pinoc-text-to-motion--prompt-dribble-6286c387.mp4",
+    "priority": false
+  },
+  "tpl-pinoc-text-to-motion-prompt-kick": {
+    "videoUrl": "/assets/viggle-templates/pinoc-text-to-motion--prompt-kick-419b824b.mp4",
+    "priority": false
+  },
+  "tpl-pinoc-text-to-motion-prompt-salsa": {
+    "videoUrl": "/assets/viggle-templates/pinoc-text-to-motion--prompt-salsa-438c6e7d.mp4",
+    "priority": false
+  },
+  "tpl-pinoc-mcp-character-clap": {
+    "videoUrl": "/assets/viggle-templates/pinoc-mcp--character-clap-c1faf7ba.mp4",
+    "priority": false
+  },
+  "tpl-pinoc-mcp-preset-cheering": {
+    "videoUrl": "/assets/viggle-templates/pinoc-mcp--preset-cheering-4d858f50.mp4",
+    "priority": false
+  },
+  "tpl-pinoc-mcp-preset-running": {
+    "videoUrl": "/assets/viggle-templates/pinoc-mcp--preset-running-9acea172.mp4",
+    "priority": false
+  },
+  "tpl-pinoc-mcp-preset-walking": {
+    "videoUrl": "/assets/viggle-templates/pinoc-mcp--preset-walking-afbd3f3d.mp4",
+    "priority": false
+  },
+  "tpl-luancer-live-streamer-1": {
+    "videoUrl": "/assets/viggle-templates/viggle-live--streamer-1-d84f7063.mp4",
+    "priority": true
+  },
+  "tpl-luancer-live-streamer-2": {
+    "videoUrl": "/assets/viggle-templates/viggle-live--streamer-2-dcae7fdd.mp4",
+    "priority": false
+  },
+  "tpl-luancer-live-streamer-3": {
+    "videoUrl": "/assets/viggle-templates/viggle-live--streamer-3-922744c9.mp4",
+    "priority": false
+  },
+  "tpl-luancer-live-streamer-4": {
+    "videoUrl": "/assets/viggle-templates/viggle-live--streamer-4-053ed2fc.mp4",
+    "priority": false
+  },
+  "tpl-luancer-live-streamer-5": {
+    "videoUrl": "/assets/viggle-templates/viggle-live--streamer-5-88b80e00.mp4",
+    "priority": false
+  },
+  "tpl-luancerr-gallery-1": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/viggler/gallery-1-c20db414.mp4",
+    "priority": false
+  },
+  "tpl-luancerr-gallery-2": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/viggler/gallery-2-91e137d0.mp4",
+    "priority": false
+  },
+  "tpl-luancerr-gallery-3": {
+    "videoUrl": "/assets/viggle-templates/viggler--gallery-3-ce1ff64b.mp4",
+    "priority": false
+  },
+  "tpl-luancerr-gallery-4": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/viggler/gallery-4-7d1bb67b.mp4",
+    "priority": false
+  },
+  "tpl-luancerr-gallery-5": {
+    "videoUrl": "/assets/viggle-templates/viggler--gallery-5-298b6d02.mp4",
+    "priority": false
+  },
+  "tpl-luancerr-gallery-6": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/viggler/gallery-6-184d385f.mp4",
+    "priority": false
+  },
+  "tpl-luancerr-gallery-7": {
+    "videoUrl": "/assets/viggle-templates/viggler--gallery-7-0bdea299.mp4",
+    "priority": false
+  },
+  "tpl-ronda-generate-1": {
+    "videoUrl": "/assets/viggle-templates/ronda--generate-1-d5438e05.mp4",
+    "priority": false
+  },
+  "tpl-ronda-generate-2": {
+    "videoUrl": "/assets/viggle-templates/ronda--generate-2-66f2a91a.mp4",
+    "priority": false
+  },
+  "tpl-ronda-generate-3": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/ronda/generate-3-21f4f0ed.mp4",
+    "priority": false
+  },
+  "tpl-ronda-generate-4": {
+    "videoUrl": "/assets/viggle-templates/ronda--generate-4-a282b986.mp4",
+    "priority": false
+  },
+  "tpl-ronda-generate-5": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/ronda/generate-5-8647a891.mp4",
+    "priority": false
+  },
+  "tpl-ronda-generate-6": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/ronda/generate-6-9e440292.mp4",
+    "priority": false
+  },
+  "tpl-jst2-assets-firefly-garden-explore": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/jst2-assets/firefly-garden-explore-9b7458c2.mp4",
+    "priority": false
+  },
+  "tpl-jst2-assets-living-room-explore": {
+    "videoUrl": "/assets/viggle-templates/jst2-assets--living-room-explore-19e3acb6.mp4",
+    "priority": false
+  },
+  "tpl-jst2-assets-motion-footage-13": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/jst2-assets/motion-footage-13-614c637e.mp4",
+    "priority": false
+  },
+  "tpl-jst2-assets-motion-footage-16": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/jst2-assets/motion-footage-16-97d38127.mp4",
+    "priority": false
+  },
+  "tpl-jst2-assets-motion-footage-17": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/jst2-assets/motion-footage-17-0a96e08c.mp4",
+    "priority": false
+  },
+  "tpl-jst2-assets-motion-footage-19": {
+    "videoUrl": "/assets/viggle-templates/jst2-assets--motion-footage-19-2823d22a.mp4",
+    "priority": false
+  },
+  "tpl-jst2-assets-motion-footage-20": {
+    "videoUrl": "/assets/viggle-templates/jst2-assets--motion-footage-20-3136392a.mp4",
+    "priority": false
+  },
+  "tpl-jst2-assets-real-world-hallway": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/jst2-assets/real-world-hallway-2039648d.mp4",
+    "priority": false
+  },
+  "tpl-jst2-assets-real-world-kitchen": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/jst2-assets/real-world-kitchen-8f88f8c1.mp4",
+    "priority": false
+  },
+  "tpl-jst2-assets-real-world-studio": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/jst2-assets/real-world-studio-651365a0.mp4",
+    "priority": false
+  },
+  "tpl-jst2-assets-real-world-warehouse": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/jst2-assets/real-world-warehouse-b885c84c.mp4",
+    "priority": false
+  },
+  "tpl-jst2-assets-scene-edit-coffee-shop": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/jst2-assets/scene-edit-coffee-shop-f39b564d.mp4",
+    "priority": false
+  },
+  "tpl-jst2-assets-scene-edit-greenhouse": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/jst2-assets/scene-edit-greenhouse-b5c8f6e7.mp4",
+    "priority": false
+  },
+  "tpl-jst2-assets-scene-edit-observation-room": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/jst2-assets/scene-edit-observation-room-0526bb32.mp4",
+    "priority": false
+  },
+  "tpl-jst2-assets-scene-edit-pottery-studio": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/jst2-assets/scene-edit-pottery-studio-dc75fbca.mp4",
+    "priority": false
+  },
+  "tpl-jst2-assets-snow-village-explore": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/jst2-assets/snow-village-explore-af39f032.mp4",
+    "priority": false
+  },
+  "tpl-jst2-assets-space-cabin-explore": {
+    "videoUrl": "/assets/viggle-templates/jst2-assets--space-cabin-explore-a1d331de.mp4",
+    "priority": false
+  },
+  "tpl-jst2-assets-windmill-village-explore": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/jst2-assets/windmill-village-explore-4e6d9c0d.mp4",
+    "priority": false
+  },
+  "tpl-jst2m-01": {
+    "videoUrl": "/assets/viggle-templates/jst2m-clip-01-fd3726fc.mp4",
+    "priority": false
+  },
+  "tpl-jst2m-02": {
+    "videoUrl": "/assets/viggle-templates/jst2m-clip-02-1b53a1c6.mp4",
+    "priority": true
+  },
+  "tpl-jst2m-03": {
+    "videoUrl": "/assets/viggle-templates/jst2m-clip-03-e99763ee.mp4",
+    "priority": false
+  },
+  "tpl-jst2m-04": {
+    "videoUrl": "https://assets.viggle.ai/pub/www/research/jst2m-clip-04-a619b902.mp4",
+    "priority": false
+  },
+  "tpl-jst2m-05": {
+    "videoUrl": "/assets/viggle-templates/jst2m-clip-05-bd7f1329.mp4",
+    "priority": false
+  },
+  "tpl-jst2m-06": {
+    "videoUrl": "/assets/viggle-templates/jst2m-clip-06-3b26eaa7.mp4",
+    "priority": false
+  },
+  "tpl-jst2m-07": {
+    "videoUrl": "/assets/viggle-templates/jst2m-clip-07-13203a02.mp4",
+    "priority": false
+  },
+  "tpl-jst2m-08": {
+    "videoUrl": "/assets/viggle-templates/jst2m-clip-08-161ea99b.mp4",
+    "priority": false
+  },
+  "tpl-jst2m-09": {
+    "videoUrl": "/assets/viggle-templates/jst2m-clip-09-5cc21fc9.mp4",
+    "priority": false
+  },
+  "tpl-jst2m-10": {
+    "videoUrl": "/assets/viggle-templates/jst2m-clip-10-055b3717.mp4",
+    "priority": false
+  },
+  "tpl-jst2m-11": {
+    "videoUrl": "/assets/viggle-templates/jst2m-clip-11-efc54d0f.mp4",
+    "priority": false
+  },
+  "tpl-jst2m-12": {
+    "videoUrl": "/assets/viggle-templates/jst2m-clip-12-8afa0728.mp4",
+    "priority": false
+  }
+}

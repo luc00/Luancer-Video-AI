@@ -15,6 +15,18 @@ import {
   MOVING_TEMPLATES,
   type MotionTemplate,
 } from '../data/viggleData';
+import { TemplateMediaPreview } from './TemplateMediaPreview';
+
+const MOVING_CATEGORIES = [
+  'All',
+  'Memes',
+  'Dance',
+  'Action',
+  'Sports',
+  'Rap / Music',
+  '3D Worlds',
+  'VFX & Swap',
+] as const;
 
 interface MemePageProps {
   onNavigate: (path: string) => void;
@@ -29,6 +41,7 @@ export function MemePage({ onNavigate }: MemePageProps) {
   const [bottomText, setBottomText] = useState('Bottom text');
   const [fontSize, setFontSize] = useState(34);
   const [classicSearch, setClassicSearch] = useState('');
+  const [movingCategory, setMovingCategory] = useState<string>('All');
   const [movingSearch, setMovingSearch] = useState('');
   const [copied, setCopied] = useState(false);
 
@@ -47,11 +60,13 @@ export function MemePage({ onNavigate }: MemePageProps) {
   });
 
   const filteredMoving = MOVING_TEMPLATES.filter((t) => {
+    if (movingCategory !== 'All' && t.category !== movingCategory) return false;
     const q = movingSearch.trim().toLowerCase();
     if (!q) return true;
     return (
       t.name.toLowerCase().includes(q) ||
       t.category.toLowerCase().includes(q) ||
+      t.creator.toLowerCase().includes(q) ||
       t.tags.some((tag) => tag.toLowerCase().includes(q))
     );
   });
@@ -291,19 +306,19 @@ export function MemePage({ onNavigate }: MemePageProps) {
         </div>
       </section>
 
-      {/* Moving Meme Templates (33 official MP4 video templates) */}
+      {/* Moving & Video Templates (all exported Luancer templates) */}
       <section className="mb-16">
-        <div className="flex flex-wrap items-end justify-between gap-4 mb-6">
+        <div className="flex flex-wrap items-end justify-between gap-4 mb-5">
           <div>
             <div className="inline-flex items-center gap-1.5 text-[12px] font-semibold uppercase tracking-[0.08em] text-[#00a830] dark:text-[#07f34b] mb-1">
               <Film className="w-3.5 h-3.5" />
-              <span>Moving Meme Templates ({MOVING_TEMPLATES.length})</span>
+              <span>Moving &amp; Video Templates ({MOVING_TEMPLATES.length})</span>
             </div>
             <h2 className="text-[28px] md:text-[34px] font-medium tracking-[-0.02em]">
               Trending motion templates
             </h2>
             <p className="text-[14px] text-[#6b645c] dark:text-[#a39c93]">
-              Drop your photo into real viral dances, walkouts, sports celebrations, and reaction loops.
+              Drop your photo into viral dances, VFX character swaps, 3D worlds, sports mocap, and reaction loops. Hover any card to preview motion.
             </p>
           </div>
 
@@ -314,10 +329,30 @@ export function MemePage({ onNavigate }: MemePageProps) {
               aria-label="Search moving templates"
               value={movingSearch}
               onChange={(e) => setMovingSearch(e.target.value)}
-              placeholder="Search moving templates..."
-              className="bg-transparent text-[13px] outline-none w-48"
+              placeholder={`Search ${MOVING_TEMPLATES.length} motion templates...`}
+              className="bg-transparent text-[13px] outline-none w-52"
             />
           </div>
+        </div>
+
+        <div className="flex items-center gap-1.5 overflow-x-auto pb-3 mb-5">
+          {MOVING_CATEGORIES.map((cat) => {
+            const active = movingCategory === cat;
+            return (
+              <button
+                key={cat}
+                type="button"
+                onClick={() => setMovingCategory(cat)}
+                className={`px-3.5 py-1.5 rounded-full text-[12px] font-semibold transition-colors cursor-pointer whitespace-nowrap shrink-0 ${
+                  active
+                    ? 'bg-[#111310] text-white dark:bg-[#07f34b] dark:text-[#111310]'
+                    : 'bg-[#f3f2ed] dark:bg-[#171614] border border-black/8 dark:border-white/10 text-[#6b645c] dark:text-[#a39c93] hover:text-[#111310] dark:hover:text-white'
+                }`}
+              >
+                {cat}
+              </button>
+            );
+          })}
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
@@ -329,25 +364,7 @@ export function MemePage({ onNavigate }: MemePageProps) {
               className="group text-left rounded-2xl bg-[#f3f2ed] dark:bg-[#171614] border border-black/6 dark:border-white/10 overflow-hidden hover:border-[#07f34b] transition-colors cursor-pointer flex flex-col"
             >
               <div className="relative aspect-[3/4] bg-black overflow-hidden">
-                {tpl.videoUrl ? (
-                  <video
-                    src={tpl.videoUrl}
-                    poster={tpl.image}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    preload="metadata"
-                    className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
-                  />
-                ) : (
-                  <img
-                    src={tpl.image}
-                    alt={tpl.name}
-                    loading="lazy"
-                    className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
-                  />
-                )}
+                <TemplateMediaPreview template={tpl} />
                 <span className="absolute top-2 left-2 px-2 py-0.5 rounded-md bg-black/75 text-white text-[10px] font-semibold">
                   {tpl.category}
                 </span>
