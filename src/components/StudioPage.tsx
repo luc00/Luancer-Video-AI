@@ -3,6 +3,7 @@ import {
   AlertCircle,
   Box,
   CheckCircle2,
+  ChevronDown,
   Compass,
   Download,
   Film,
@@ -27,15 +28,19 @@ import { useFirebase } from '../context/FirebaseContext';
 import {
   ASSETS,
   MOTION_TEMPLATES,
+  PINOC_WORLDS,
   STUDIO_CHARACTERS,
   type MotionTemplate,
 } from '../data/viggleData';
 import { getTemplate4kVideoUrl } from '../utils/templateMedia';
 import {
   buildMixGenerationPrompt,
+  buildMotionExportEndpoint,
   calculateJobCredits,
   filterMotionTemplates,
+  sanitizeExportFilename,
   TEMPLATE_CATEGORIES,
+  type ExportFormat,
   type MixBackgroundMode,
   type StudioJob,
   type StudioResolutionTier,
@@ -144,8 +149,25 @@ export function StudioPage({
   const [sidebarView, setSidebarView] = useState<SidebarView>(initialView || 'create');
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [mode, setMode] = useState<StudioJob['mode']>(initialMode);
-  const [characters, setCharacters] = useState<CharacterOption[]>(STUDIO_CHARACTERS);
-  const [selectedCharId, setSelectedCharId] = useState(STUDIO_CHARACTERS[0].id);
+  const [characters, setCharacters] = useState<CharacterOption[]>(() => {
+    if (initialMatchedTpl?.kind === 'classic' && initialMatchedTpl.image) {
+      return [
+        {
+          id: `tpl-char-${initialMatchedTpl.id}`,
+          name: initialMatchedTpl.name,
+          style: 'Classic Meme Subject',
+          image: initialMatchedTpl.image,
+        },
+        ...STUDIO_CHARACTERS,
+      ];
+    }
+    return STUDIO_CHARACTERS;
+  });
+  const [selectedCharId, setSelectedCharId] = useState(() =>
+    initialMatchedTpl?.kind === 'classic' && initialMatchedTpl.image
+      ? `tpl-char-${initialMatchedTpl.id}`
+      : STUDIO_CHARACTERS[0].id
+  );
   const [selectedSecondCharId, setSelectedSecondCharId] = useState(STUDIO_CHARACTERS[1].id);
   const [selectedTplId, setSelectedTplId] = useState(
     initialMatchedTpl?.id ?? DEFAULT_SHOWCASE_TPL.id
@@ -209,8 +231,12 @@ export function StudioPage({
   const [isGenerating, setIsGenerating] = useState(false);
   const [playing, setPlaying] = useState(true);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [infoMsg, setInfoMsg] = useState<string | null>(null);
+  const [exportMenuOpen, setExportMenuOpen] = useState(false);
+  const [exportingFormat, setExportingFormat] = useState<ExportFormat | null>(null);
 
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const exportMenuRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     setMode(initialMode);
@@ -230,9 +256,46 @@ export function StudioPage({
       setPrompt(match.prompt);
       setAspectRatio(match.aspect);
       setMode((prev) => (prev === 'text-to-video' ? 'image-to-video' : prev));
+      if (match.kind === 'classic' && match.image) {
+        const charId = `tpl-char-${match.id}`;
+        setCharacters((prev) =>
+          prev.some((c) => c.id === charId)
+            ? prev
+            : [
+                {
+                  id: charId,
+                  name: match.name,
+                  style: 'Classic Meme Subject',
+                  image: match.image,
+                },
+                ...prev,
+              ]
+        );
+        setSelectedCharId(charId);
+      }
       setSidebarView(initialView || 'create');
     }
   }, [initialTemplateId, initialView]);
+
+  useEffect(() => {
+    if (!exportMenuOpen) return;
+    const handlePointerDown = (ev: MouseEvent) => {
+      if (exportMenuRef.current && !exportMenuRef.current.contains(ev.target as Node)) {
+        setExportMenuOpen(false);
+      }
+    };
+    const handleKeyDown = (ev: KeyboardEvent) => {
+      if (ev.key === 'Escape') {
+        setExportMenuOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handlePointerDown);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('mousedown', handlePointerDown);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [exportMenuOpen]);
 
   useEffect(() => {
     return () => {
@@ -465,6 +528,110 @@ export function StudioPage({
     setErrorMsg(null);
   };
 
+  const handleSelectPinocWorld = (world: (typeof PINOC_WORLDS)[number]) => {
+    const previewId = `preview-pinoc-${world.id}`;
+    setMode('pinoc');
+    setPrompt(world.prompt);
+    setAspectRatio('16:9');
+    setSidebarView('create');
+    setErrorMsg(null);
+    setInfoMsg(null);
+    setSessionJobs((prev) => {
+      const rest = prev.filter((j) => !j.id.startsWith('preview-'));
+      return [
+        {
+          id: previewId,
+          mode: 'pinoc',
+          characterName: world.title,
+          templateName: 'PINOC 3D World',
+          prompt: world.prompt,
+          model,
+          aspectRatio: '16:9',
+          status: 'completed',
+          progress: 100,
+          creditsUsed: 0,
+          createdAt: new Date().toISOString(),
+          mediaType: 'image',
+          outputUrl: world.image,
+        },
+        ...rest,
+      ];
+    });
+    setActiveJobId(previewId);
+  };
+
+  const triggerBlobDownload = (blob: Blob, filename: string) => {
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    window.setTimeout(() => URL.revokeObjectURL(url), 2500);
+  };
+
+  const handleExportJob = async (job: StudioJob, format: ExportFormat) => {
+    if (!job.outputUrl || exportingFormat) return;
+    setExportMenuOpen(false);
+    setExportingFormat(format);
+    setErrorMsg(null);
+    const baseLabel = job.characterName || job.templateName || job.id;
+    const filename = sanitizeExportFilename(baseLabel, format);
+    const baseNameNoExt = filename.replace(/\.(mp4|gif)$/i, '');
+
+    try {
+      const serverEndpoint = buildMotionExportEndpoint(job.outputUrl, format, baseLabel);
+      if (serverEndpoint) {
+        const res = await fetch(serverEndpoint);
+        if (!res.ok) {
+          const errBody = (await res.json().catch(() => ({}))) as { error?: string };
+          throw new Error(errBody.error || `Export failed with status ${res.status}.`);
+        }
+        const blob = await res.blob();
+        triggerBlobDownload(blob, filename);
+        return;
+      }
+
+      if (job.outputUrl.startsWith('blob:') || job.outputUrl.startsWith('data:')) {
+        const srcRes = await fetch(job.outputUrl);
+        if (!srcRes.ok) throw new Error('Unable to read local motion preview for export.');
+        const srcBlob = await srcRes.blob();
+        const convRes = await fetch(
+          `/api/export/motion-blob?format=${format}&name=${encodeURIComponent(baseNameNoExt)}`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type':
+                srcBlob.type || (job.mediaType === 'video' ? 'video/mp4' : 'image/jpeg'),
+            },
+            body: srcBlob,
+          }
+        );
+        if (!convRes.ok) {
+          const errBody = (await convRes.json().catch(() => ({}))) as { error?: string };
+          throw new Error(errBody.error || `Conversion to ${format.toUpperCase()} failed.`);
+        }
+        const convertedBlob = await convRes.blob();
+        triggerBlobDownload(convertedBlob, filename);
+        return;
+      }
+
+      const fallbackLink = document.createElement('a');
+      fallbackLink.href = job.outputUrl;
+      fallbackLink.download = filename;
+      document.body.appendChild(fallbackLink);
+      fallbackLink.click();
+      document.body.removeChild(fallbackLink);
+    } catch (err: unknown) {
+      setErrorMsg(
+        err instanceof Error ? err.message : `Unable to export ${format.toUpperCase()} file.`
+      );
+    } finally {
+      setExportingFormat(null);
+    }
+  };
+
   const handleGenerate = async () => {
     if (isGenerating) return;
     if (credits < cost) {
@@ -473,6 +640,7 @@ export function StudioPage({
     }
 
     setErrorMsg(null);
+    setInfoMsg(null);
     setTplBrowserOpen(false);
     const apiMode = isTextOnly ? 'text-to-video' : 'image-to-video';
     const effectivePrompt = buildMixGenerationPrompt({
@@ -547,15 +715,55 @@ export function StudioPage({
         body: JSON.stringify(validation.data),
       });
 
-      const body = (await response.json().catch(() => ({}))) as {
+      let body = (await response.json().catch(() => ({}))) as {
         videoId?: string;
         videoUrl?: string;
         interactionId?: string;
         error?: string;
       };
 
-      if (!response.ok || !body.videoUrl) {
+      if ([402, 403, 429, 502, 503].includes(response.status)) {
+        const compRes = await fetch('/api/videos/composite', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            templateId: customMotion ? undefined : selectedTpl.id,
+            aspectRatio,
+            bgMode,
+            resolutionTier,
+            characterImageBase64: imageBase64,
+            characterMimeType: imageMimeType,
+          }),
+        });
+        const compBody = (await compRes.json().catch(() => ({}))) as {
+          videoId?: string;
+          videoUrl?: string;
+          error?: string;
+        };
+        if (!compRes.ok || !compBody.videoUrl) {
+          throw new Error(
+            compBody.error ||
+              body.error ||
+              `Local motion compositor failed with status ${compRes.status}.`
+          );
+        }
+        body = {
+          videoId: compBody.videoId,
+          videoUrl: compBody.videoUrl,
+          interactionId: 'local-ffmpeg-compositor',
+        };
+        setInfoMsg(
+          response.status === 503
+            ? 'Cloud GEMINI_API_KEY is not configured on this runtime — rendered a downloadable MP4 locally with Luancer FFmpeg compositor.'
+            : `Gemini Omni cloud tier limit (HTTP ${response.status}) — rendered a real downloadable MP4 locally via Luancer FFmpeg compositor.`
+        );
+      } else if (!response.ok || !body.videoUrl) {
         throw new Error(body.error || `Video generation failed with status ${response.status}.`);
+      }
+
+      const finalVideoUrl = body.videoUrl;
+      if (!finalVideoUrl) {
+        throw new Error('Video generation completed without returning a playable URL.');
       }
 
       const completedJob: StudioJob = {
@@ -563,7 +771,7 @@ export function StudioPage({
         status: 'completed',
         progress: 100,
         mediaType: 'video',
-        outputUrl: body.videoUrl,
+        outputUrl: finalVideoUrl,
       };
 
       setSessionJobs((prev) => prev.map((j) => (j.id === jobId ? completedJob : j)));
@@ -580,7 +788,7 @@ export function StudioPage({
           creditsUsed: cost,
           mediaType: 'video',
           status: 'completed',
-          outputUrl: body.videoUrl,
+          outputUrl: finalVideoUrl,
           videoId: body.videoId,
           interactionId: body.interactionId,
         });
@@ -949,6 +1157,26 @@ export function StudioPage({
                 </div>
               )}
 
+              {infoMsg && (
+                <div
+                  role="status"
+                  className="flex items-center justify-between gap-2 rounded-xl bg-emerald-500/12 border border-emerald-500/30 px-3.5 py-2.5 text-[12px] font-medium text-emerald-200"
+                >
+                  <div className="flex items-center gap-2 min-w-0">
+                    <CheckCircle2 className="w-4 h-4 shrink-0 text-[#07f34b]" />
+                    <span>{infoMsg}</span>
+                  </div>
+                  <button
+                    type="button"
+                    aria-label="Dismiss notice"
+                    onClick={() => setInfoMsg(null)}
+                    className="p-1 rounded-lg hover:bg-white/10 text-emerald-200/75 hover:text-white cursor-pointer shrink-0"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              )}
+
               {/* Viggle.ai Dual-Pane Mix Workspace: Left Controls + Right Cinema Stage */}
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
                 {/* Left Mix Composer Column (Never clips on any screen) */}
@@ -993,6 +1221,7 @@ export function StudioPage({
                     cost={cost}
                     isGenerating={isGenerating}
                     onGenerate={() => void handleGenerate()}
+                    onSelectPinocWorld={handleSelectPinocWorld}
                     webcamActive={webcamActive}
                     webcamError={webcamError}
                     onToggleWebcam={() => void handleToggleWebcam()}
@@ -1060,16 +1289,78 @@ export function StudioPage({
                           </span>
                         </span>
 
-                        <a
-                          href={activeJob.outputUrl}
-                          download={`luancer-${activeJob.id}.${
-                            activeJob.mediaType === 'video' ? 'mp4' : 'jpg'
-                          }`}
-                          className="px-3 py-1.5 rounded-xl bg-[#07f34b] hover:bg-[#00d83d] text-[#111310] text-[12px] font-semibold inline-flex items-center gap-1.5"
-                        >
-                          <Download className="w-3.5 h-3.5" />
-                          <span>Export</span>
-                        </a>
+                        <div ref={exportMenuRef} className="relative">
+                          <button
+                            type="button"
+                            aria-haspopup="menu"
+                            aria-expanded={exportMenuOpen}
+                            disabled={
+                              activeJob.status === 'rendering' ||
+                              activeJob.status === 'failed' ||
+                              Boolean(exportingFormat)
+                            }
+                            onClick={() => setExportMenuOpen((open) => !open)}
+                            className="px-3 py-1.5 rounded-xl bg-[#07f34b] hover:bg-[#00d83d] disabled:opacity-50 text-[#111310] text-[12px] font-semibold inline-flex items-center gap-1.5 cursor-pointer disabled:cursor-not-allowed"
+                          >
+                            {exportingFormat ? (
+                              <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                            ) : (
+                              <Download className="w-3.5 h-3.5" />
+                            )}
+                            <span>
+                              {exportingFormat
+                                ? `Exporting ${exportingFormat.toUpperCase()}...`
+                                : 'Export'}
+                            </span>
+                            <ChevronDown className="w-3.5 h-3.5 opacity-80" />
+                          </button>
+
+                          {exportMenuOpen && (
+                            <div
+                              role="menu"
+                              aria-label="Export motion file format"
+                              className="absolute right-0 mt-2 w-56 rounded-xl bg-[#1a1c21] border border-white/15 shadow-2xl p-1.5 z-30"
+                            >
+                              <button
+                                type="button"
+                                role="menuitem"
+                                onClick={() => void handleExportJob(activeJob, 'mp4')}
+                                className="w-full flex items-center justify-between gap-2 px-3 py-2 rounded-lg hover:bg-white/10 text-left cursor-pointer"
+                              >
+                                <div>
+                                  <div className="text-[12px] font-semibold text-white">
+                                    Download MP4
+                                  </div>
+                                  <div className="text-[10px] text-white/55">
+                                    High-res H.264 video
+                                  </div>
+                                </div>
+                                <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-[#07f34b]/15 text-[#07f34b]">
+                                  MP4
+                                </span>
+                              </button>
+
+                              <button
+                                type="button"
+                                role="menuitem"
+                                onClick={() => void handleExportJob(activeJob, 'gif')}
+                                className="w-full flex items-center justify-between gap-2 px-3 py-2 rounded-lg hover:bg-white/10 text-left cursor-pointer mt-0.5"
+                              >
+                                <div>
+                                  <div className="text-[12px] font-semibold text-white">
+                                    Download GIF
+                                  </div>
+                                  <div className="text-[10px] text-white/55">
+                                    Looping animated GIF
+                                  </div>
+                                </div>
+                                <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-white/10 text-white/85">
+                                  GIF
+                                </span>
+                              </button>
+                            </div>
+                          )}
+                        </div>
                       </div>
                     </div>
 
@@ -1242,48 +1533,28 @@ export function StudioPage({
                         </button>
                       </div>
                       <div className="grid grid-cols-2 gap-2.5">
-                        {trendingTemplates.map((tpl) => {
-                          const src4k = getTemplate4kVideoUrl(tpl.id, tpl.videoUrl);
-                          return (
-                            <button
-                              key={tpl.id}
-                              type="button"
-                              onClick={() => applyMotionTemplate(tpl)}
-                              className={`group relative rounded-xl overflow-hidden aspect-[4/3] bg-black border text-left cursor-pointer ${
-                                tpl.id === selectedTplId
-                                  ? 'border-[#07f34b]'
-                                  : 'border-white/8 hover:border-[#07f34b]'
-                              }`}
-                            >
-                              {src4k ? (
-                                <video
-                                  src={src4k}
-                                  poster={tpl.image}
-                                  autoPlay
-                                  loop
-                                  muted
-                                  playsInline
-                                  preload="metadata"
-                                  className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
-                                />
-                              ) : (
-                                <img
-                                  src={tpl.image}
-                                  alt={tpl.name}
-                                  className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
-                                />
-                              )}
-                              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/45 to-transparent p-2">
-                                <div className="text-[11px] font-semibold text-white truncate">
-                                  {tpl.name}
-                                </div>
-                                <div className="text-[10px] text-white/60">
-                                  {tpl.duration} · Remix
-                                </div>
+                        {trendingTemplates.map((tpl) => (
+                          <button
+                            key={tpl.id}
+                            type="button"
+                            onClick={() => applyMotionTemplate(tpl)}
+                            className={`group relative rounded-xl overflow-hidden aspect-[4/3] bg-black border text-left cursor-pointer ${
+                              tpl.id === selectedTplId
+                                ? 'border-[#07f34b]'
+                                : 'border-white/8 hover:border-[#07f34b]'
+                            }`}
+                          >
+                            <TemplateMediaPreview template={tpl} autoPlay />
+                            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/45 to-transparent p-2">
+                              <div className="text-[11px] font-semibold text-white truncate">
+                                {tpl.name}
                               </div>
-                            </button>
-                          );
-                        })}
+                              <div className="text-[10px] text-white/60">
+                                {tpl.duration} · Remix
+                              </div>
+                            </div>
+                          </button>
+                        ))}
                       </div>
                     </div>
 
@@ -1489,16 +1760,24 @@ export function StudioPage({
                         <div className="text-[12px] text-white/50 truncate">{job.prompt}</div>
                       </div>
                       <div className="flex items-center gap-1 shrink-0">
-                        <a
-                          href={job.outputUrl}
-                          download={`luancer-${job.id}.${
-                            job.mediaType === 'video' ? 'mp4' : 'jpg'
-                          }`}
-                          aria-label={`Download ${job.characterName}`}
-                          className="p-2 rounded-xl bg-white/8 hover:bg-white/15 text-white"
+                        <button
+                          type="button"
+                          disabled={Boolean(exportingFormat) || job.status !== 'completed'}
+                          onClick={() => void handleExportJob(job, 'mp4')}
+                          aria-label={`Export ${job.characterName} as MP4`}
+                          className="px-2 py-1.5 rounded-lg bg-[#07f34b]/15 hover:bg-[#07f34b] text-[#07f34b] hover:text-[#111310] text-[11px] font-bold transition-colors cursor-pointer disabled:opacity-45"
                         >
-                          <Download className="w-4 h-4" />
-                        </a>
+                          MP4
+                        </button>
+                        <button
+                          type="button"
+                          disabled={Boolean(exportingFormat) || job.status !== 'completed'}
+                          onClick={() => void handleExportJob(job, 'gif')}
+                          aria-label={`Export ${job.characterName} as GIF`}
+                          className="px-2 py-1.5 rounded-lg bg-white/8 hover:bg-white/18 text-white text-[11px] font-bold transition-colors cursor-pointer disabled:opacity-45"
+                        >
+                          GIF
+                        </button>
                         {user && isPersisted && (
                           <button
                             type="button"

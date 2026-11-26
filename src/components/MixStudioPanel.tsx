@@ -73,6 +73,7 @@ interface MixStudioPanelProps {
   cost: number;
   isGenerating: boolean;
   onGenerate: () => void;
+  onSelectPinocWorld?: (world: (typeof PINOC_WORLDS)[number]) => void;
   webcamActive: boolean;
   webcamError: string | null;
   onToggleWebcam: () => void;
@@ -122,6 +123,7 @@ export function MixStudioPanel({
   cost,
   isGenerating,
   onGenerate,
+  onSelectPinocWorld,
   webcamActive,
   webcamError,
   onToggleWebcam,
@@ -367,20 +369,34 @@ export function MixStudioPanel({
         <div className="rounded-xl bg-[#0e0f12] border border-white/8 p-3 space-y-2.5">
           <div className="text-[12px] font-semibold text-white">3D World Preset (PINOC)</div>
           <div className="grid grid-cols-2 gap-1.5">
-            {PINOC_WORLDS.slice(0, 4).map((w) => (
-              <button
-                key={w.id}
-                type="button"
-                onClick={() => onChangePrompt(w.prompt)}
-                className="flex items-center gap-2 p-1.5 rounded-lg bg-white/5 hover:bg-white/12 text-left cursor-pointer border border-white/8"
-              >
-                <img src={w.image} alt={w.title} className="w-8 h-8 rounded object-cover shrink-0" />
-                <div className="min-w-0">
-                  <div className="text-[11px] font-semibold text-white truncate">{w.title}</div>
-                  <div className="text-[10px] text-white/45">{w.polygons}</div>
-                </div>
-              </button>
-            ))}
+            {PINOC_WORLDS.slice(0, 4).map((w) => {
+              const activeWorld = prompt.trim() === w.prompt.trim();
+              return (
+                <button
+                  key={w.id}
+                  type="button"
+                  aria-pressed={activeWorld}
+                  onClick={() => {
+                    if (onSelectPinocWorld) {
+                      onSelectPinocWorld(w);
+                    } else {
+                      onChangePrompt(w.prompt);
+                    }
+                  }}
+                  className={`flex items-center gap-2 p-1.5 rounded-lg text-left cursor-pointer border transition-colors ${
+                    activeWorld
+                      ? 'bg-[#07f34b]/15 border-[#07f34b]'
+                      : 'bg-white/5 hover:bg-white/12 border-white/8'
+                  }`}
+                >
+                  <img src={w.image} alt={w.title} className="w-8 h-8 rounded object-cover shrink-0" />
+                  <div className="min-w-0">
+                    <div className="text-[11px] font-semibold text-white truncate">{w.title}</div>
+                    <div className="text-[10px] text-white/45">{w.polygons}</div>
+                  </div>
+                </button>
+              );
+            })}
           </div>
         </div>
       ) : !isTextOnly ? (
@@ -526,6 +542,29 @@ export function MixStudioPanel({
             }
             className="w-full rounded-xl bg-[#16181d] border border-white/10 focus:border-[#07f34b] px-3 py-1.5 text-[12px] text-white placeholder:text-white/40 outline-none resize-none"
           />
+          {isTextOnly && (
+            <div className="flex flex-wrap gap-1.5 mt-2">
+              {[
+                {
+                  label: 'Cyberpunk Sprint',
+                  text: 'Stylized 3D anime runner sprinting across rain-slicked neon rooftops with dynamic tracking camera',
+                },
+                {
+                  label: 'Studio Dance',
+                  text: 'Expressive full-body hip hop dance solo in warm golden hour studio lighting, crisp footwork',
+                },
+              ].map((preset) => (
+                <button
+                  key={preset.label}
+                  type="button"
+                  onClick={() => onChangePrompt(preset.text)}
+                  className="px-2 py-1 rounded-md bg-white/6 hover:bg-white/14 text-[10px] font-medium text-white/80 cursor-pointer"
+                >
+                  + {preset.label}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
         {!isTextOnly && (

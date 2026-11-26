@@ -186,7 +186,7 @@ export function HomePage({ onNavigate, theme, lang }: HomePageProps) {
                       onKeyDown={(e) => handlePinocKeyDown(e, idx)}
                       className="w-full h-full block text-left cursor-pointer"
                     >
-                      {isActive && tpl.videoUrl ? (
+                      {tpl.videoUrl ? (
                         <video
                           key={tpl.id}
                           src={getTemplate4kVideoUrl(tpl.id, tpl.videoUrl)}
@@ -195,7 +195,12 @@ export function HomePage({ onNavigate, theme, lang }: HomePageProps) {
                           loop
                           muted
                           playsInline
-                          preload="metadata"
+                          preload="auto"
+                          onCanPlay={(e) => {
+                            const v = e.currentTarget;
+                            v.muted = true;
+                            if (v.paused) void v.play().catch(() => {});
+                          }}
                           className={`w-full h-full object-cover transition-transform duration-500 ${
                             tpl.aspect === '9:16' ? 'object-top' : 'object-center'
                           }`}
@@ -351,7 +356,12 @@ export function HomePage({ onNavigate, theme, lang }: HomePageProps) {
                         loop
                         muted
                         playsInline
-                        preload="metadata"
+                        preload="auto"
+                        onCanPlay={(e) => {
+                          const v = e.currentTarget;
+                          v.muted = true;
+                          if (v.paused) void v.play().catch(() => {});
+                        }}
                         className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
                       />
                     ) : (
@@ -438,7 +448,12 @@ export function HomePage({ onNavigate, theme, lang }: HomePageProps) {
                             loop
                             muted
                             playsInline
-                            preload="metadata"
+                            preload="auto"
+                            onCanPlay={(e) => {
+                              const v = e.currentTarget;
+                              v.muted = true;
+                              if (v.paused) void v.play().catch(() => {});
+                            }}
                             className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
                           />
                         ) : (
@@ -694,14 +709,23 @@ export function HomePage({ onNavigate, theme, lang }: HomePageProps) {
                 </div>
 
                 <div className="w-52 rounded-2xl bg-[#fcfcfc] dark:bg-[#171614] p-3 shadow-xl border border-black/5 dark:border-white/10">
-                  <div className="relative rounded-xl overflow-hidden aspect-square">
-                    <img
-                      src={ASSETS.memeMix}
-                      alt="Rendered API character animation preview"
-                      referrerPolicy="no-referrer"
-                      className="w-full h-full object-cover"
+                  <div className="relative rounded-xl overflow-hidden aspect-square bg-black">
+                    <video
+                      src={getTemplate4kVideoUrl('tpl-kitchen-dance-routine', ASSETS.memeMix)}
+                      poster={ASSETS.memeMix}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      preload="auto"
+                      onCanPlay={(e) => {
+                        const v = e.currentTarget;
+                        v.muted = true;
+                        if (v.paused) void v.play().catch(() => {});
+                      }}
+                      className="w-full h-full object-cover object-top"
                     />
-                    <div className="absolute bottom-2 right-2 w-7 h-7 rounded-full bg-black/60 text-white flex items-center justify-center">
+                    <div className="absolute bottom-2 right-2 w-7 h-7 rounded-full bg-black/60 text-white flex items-center justify-center pointer-events-none">
                       <Play className="w-3.5 h-3.5 fill-current" />
                     </div>
                   </div>

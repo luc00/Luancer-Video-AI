@@ -385,6 +385,38 @@ export function AboutPage({ onNavigate }: SubPageProps) {
       <p className="text-[18px] leading-[1.6] text-[#6b645c] dark:text-[#a39c93] mb-10">
         Luancer is a spatial generative AI company building the experience engine for physical intelligence—bridging video generation, controllable 3D character motion, and interactive worlds.
       </p>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-10">
+        {[
+          {
+            title: 'Terms of Service',
+            body: 'Creators retain rights to original characters and prompts. Free-tier renders include studio attribution, while Pro, Live, and Max plans grant watermark-free commercial export.',
+          },
+          {
+            title: 'Privacy Policy',
+            body: 'Uploaded portraits, custom motion videos, and exported MP4/GIF renders are scoped privately to your account and processed only for your active Studio workflows.',
+          },
+          {
+            title: 'Community Rules',
+            body: 'Celebrate creative remixes, memes, and choreography while respecting consent, attribution, and safe public standards across shared feeds.',
+          },
+          {
+            title: 'Careers at Luancer',
+            body: 'We hire graphics engineers, temporal diffusion researchers, and full-stack product builders working across 3D rigging, WebGL, and real-time video.',
+          },
+        ].map((section) => (
+          <div
+            key={section.title}
+            className="rounded-[22px] bg-[#f3f2ed] dark:bg-[#171614] p-6 border border-black/6 dark:border-white/10"
+          >
+            <h2 className="text-[18px] font-semibold mb-2">{section.title}</h2>
+            <p className="text-[14px] leading-[1.6] text-[#6b645c] dark:text-[#a39c93]">
+              {section.body}
+            </p>
+          </div>
+        ))}
+      </div>
+
       <button
         type="button"
         onClick={() => onNavigate('/research')}

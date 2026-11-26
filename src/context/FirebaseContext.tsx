@@ -157,7 +157,9 @@ export function FirebaseProvider({ children }: { children: ReactNode }) {
           }
         }
       } catch (err) {
-        handleFirestoreError(err, OperationType.WRITE, userPath);
+        const msg = err instanceof Error ? err.message : 'Unable to sync user profile with Firestore.';
+        console.error('Firestore profile sync warning:', msg);
+        setAuthError(msg);
       }
     });
 
@@ -186,7 +188,8 @@ export function FirebaseProvider({ children }: { children: ReactNode }) {
         });
       },
       (err) => {
-        handleFirestoreError(err, OperationType.GET, userPath);
+        console.error(`Firestore profile listener error (${userPath}):`, err);
+        setAuthError(err instanceof Error ? err.message : 'Unable to read user profile.');
       }
     );
 
@@ -223,7 +226,8 @@ export function FirebaseProvider({ children }: { children: ReactNode }) {
         setCreations(items);
       },
       (err) => {
-        handleFirestoreError(err, OperationType.LIST, creationsPath);
+        console.error(`Firestore creations listener error (${creationsPath}):`, err);
+        setAuthError(err instanceof Error ? err.message : 'Unable to sync creations.');
       }
     );
 

@@ -43,7 +43,7 @@ export function MemePage({ onNavigate }: MemePageProps) {
   const [classicSearch, setClassicSearch] = useState('');
   const [movingCategory, setMovingCategory] = useState<string>('All');
   const [movingSearch, setMovingSearch] = useState('');
-  const [copied, setCopied] = useState(false);
+  const [copiedStatus, setCopiedStatus] = useState<'idle' | 'copied' | 'fallback'>('idle');
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const uploadInputRef = useRef<HTMLInputElement | null>(null);
@@ -137,26 +137,31 @@ export function MemePage({ onNavigate }: MemePageProps) {
     const url = canvas.toDataURL('image/png');
     const a = document.createElement('a');
     a.href = url;
-    a.download = `luancer-${selectedClassic.id}.png`;
+    a.download = customImageUrl ? 'luancer-custom-meme.png' : `luancer-${selectedClassic.id}.png`;
     a.click();
   };
 
   const handleCopyMeme = async () => {
     const canvas = canvasRef.current;
-    if (!canvas || !navigator.clipboard) return;
+    if (!canvas) return;
     try {
       const blob = await new Promise<Blob | null>((resolve) =>
         canvas.toBlob((b) => resolve(b), 'image/png')
       );
-      if (blob && typeof ClipboardItem !== 'undefined') {
+      if (blob && typeof ClipboardItem !== 'undefined' && navigator.clipboard?.write) {
         await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
-      } else {
+        setCopiedStatus('copied');
+      } else if (navigator.clipboard?.writeText) {
         await navigator.clipboard.writeText(window.location.href);
+        setCopiedStatus('copied');
+      } else {
+        setCopiedStatus('fallback');
       }
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1800);
+      setTimeout(() => setCopiedStatus('idle'), 2000);
     } catch {
-      setCopied(false);
+      handleDownloadMeme();
+      setCopiedStatus('fallback');
+      setTimeout(() => setCopiedStatus('idle'), 2000);
     }
   };
 
@@ -280,8 +285,14 @@ export function MemePage({ onNavigate }: MemePageProps) {
                 onClick={() => void handleCopyMeme()}
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-black/15 dark:border-white/20 text-[14px] font-medium cursor-pointer"
               >
-                {copied ? <Check className="w-4 h-4 text-[#00a830]" /> : <Copy className="w-4 h-4" />}
-                <span>{copied ? 'Copied' : 'Copy image'}</span>
+                {copiedStatus !== 'idle' ? <Check className="w-4 h-4 text-[#00a830]" /> : <Copy className="w-4 h-4" />}
+                <span>
+                  {copiedStatus === 'copied'
+                    ? 'Copied'
+                    : copiedStatus === 'fallback'
+                    ? 'Saved PNG'
+                    : 'Copy image'}
+                </span>
               </button>
             </div>
 
@@ -356,7 +367,7 @@ export function MemePage({ onNavigate }: MemePageProps) {
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-          {filteredMoving.map((tpl) => (
+          {filteredMoving.map((tpl, idx) => (
             <button
               key={tpl.id}
               type="button"
@@ -364,7 +375,7 @@ export function MemePage({ onNavigate }: MemePageProps) {
               className="group text-left rounded-2xl bg-[#f3f2ed] dark:bg-[#171614] border border-black/6 dark:border-white/10 overflow-hidden hover:border-[#07f34b] transition-colors cursor-pointer flex flex-col"
             >
               <div className="relative aspect-[3/4] bg-black overflow-hidden">
-                <TemplateMediaPreview template={tpl} />
+                <TemplateMediaPreview template={tpl} autoPlay={idx < 5} />
                 <span className="absolute top-2 left-2 px-2 py-0.5 rounded-md bg-black/75 text-white text-[10px] font-semibold">
                   {tpl.category}
                 </span>

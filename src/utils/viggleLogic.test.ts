@@ -13,6 +13,8 @@ import {
   filterMotionTemplates,
   TEMPLATE_CATEGORIES,
   buildMixGenerationPrompt,
+  sanitizeExportFilename,
+  buildMotionExportEndpoint,
 } from './viggleLogic';
 import { compute4kDimensions, getTemplate4kVideoUrl } from './templateMedia';
 import {
@@ -178,3 +180,19 @@ test('Mix Studio prompt builder incorporates green screen, refine, physics, and 
   });
   assert.equal(t2v, 'Cyberpunk samurai in neon alley');
 });
+
+test('export helpers sanitize filenames and build valid MP4 and GIF endpoints', () => {
+  assert.equal(sanitizeExportFilename('Kitchen Dance Routine!', 'mp4'), 'luancer-kitchen-dance-routine.mp4');
+  assert.equal(sanitizeExportFilename('  ', 'gif'), 'luancer-motion.gif');
+  assert.equal(
+    buildMotionExportEndpoint('/api/templates/4k/tpl-kitchen-dance-routine.mp4', 'gif', 'Kitchen Dance'),
+    '/api/export/motion?format=gif&source=%2Fapi%2Ftemplates%2F4k%2Ftpl-kitchen-dance-routine.mp4&name=luancer-kitchen-dance'
+  );
+  assert.equal(
+    buildMotionExportEndpoint('/api/videos/file/vid_123_abc', 'mp4', 'My Mix'),
+    '/api/export/motion?format=mp4&source=%2Fapi%2Fvideos%2Ffile%2Fvid_123_abc&name=luancer-my-mix'
+  );
+  assert.equal(buildMotionExportEndpoint('blob:http://localhost:3000/123', 'gif', 'Upload'), null);
+  assert.equal(buildMotionExportEndpoint('https://evil.example/a.mp4', 'mp4', 'Evil'), null);
+});
+

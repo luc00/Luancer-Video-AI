@@ -458,3 +458,40 @@ export const UI_COPY: Record<
     subscribe: '订阅',
   },
 };
+
+export type ExportFormat = 'mp4' | 'gif';
+
+export function sanitizeExportFilename(rawName: string, format: ExportFormat): string {
+  const slug = rawName
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 64);
+  const safeBase = slug ? (slug.startsWith('luancer-') ? slug : `luancer-${slug}`) : 'luancer-motion';
+  return `${safeBase}.${format}`;
+}
+
+export function buildMotionExportEndpoint(
+  sourceUrl: string | undefined,
+  format: ExportFormat,
+  rawName: string
+): string | null {
+  if (!sourceUrl) return null;
+  const trimmed = sourceUrl.trim();
+  if (
+    !trimmed.startsWith('/api/videos/file/') &&
+    !trimmed.startsWith('/api/templates/4k/') &&
+    !trimmed.startsWith('/assets/viggle-templates/') &&
+    !trimmed.startsWith('/src/assets/images/')
+  ) {
+    return null;
+  }
+  const safeBase = sanitizeExportFilename(rawName, format).replace(/\.(mp4|gif)$/i, '');
+  const params = new URLSearchParams({
+    format,
+    source: trimmed,
+    name: safeBase,
+  });
+  return `/api/export/motion?${params.toString()}`;
+}
+
